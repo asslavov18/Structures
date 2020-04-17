@@ -24,14 +24,14 @@ struct CLOTHES
 
 
 /// FUNCTIONS
-bool ComparePrice(CLOTHES clothe1,CLOTHES clothe2)
+bool ComparePrice(CLOTHES clothe1, CLOTHES clothe2)
 {
-    return clothe1.price<clothe2.price;
+    return clothe1.price < clothe2.price;
 }
 
 void sortByPrice(CLOTHES* shop, int clothesCount) ///sorts the clothes by price from lower to higher
 {
-    sort(shop, shop+clothesCount, ComparePrice);
+    sort(shop, shop + clothesCount, ComparePrice);
 }
 
 
@@ -39,11 +39,11 @@ void sortByPrice(CLOTHES* shop, int clothesCount) ///sorts the clothes by price 
 CLOTHES getClothesById(CLOTHES* shop, int clothesCount, int id)  ///returns clothes by their id
 {
     int i;
-    for(i=0;i<clothesCount;i++)
+    for (i = 0; i < clothesCount; i++)
     {
-        if(shop[i].id==id) return shop[i];
+        if (shop[i].id == id) return shop[i];
     }
-    cout<<"Clothing with that ID was not found"<<endl;
+    cout << "Clothing with that ID was not found" << endl;
 }
 
 ///FUNCTIONS
@@ -65,12 +65,12 @@ int main()
 
     ///TESTING THE FUNCTIONS
 
-    int clothesCount=6;
+    int clothesCount = 6;
     sortByPrice(shop, clothesCount);
-    cout<<shop[0].price<<endl;
+    cout << shop[0].price << endl;
     CLOTHES a;
-    a=getClothesById(shop, clothesCount, 5);
-    cout<<a.id<<endl;
+    a = getClothesById(shop, clothesCount, 5);
+    cout << a.id << endl;
 
 
 
