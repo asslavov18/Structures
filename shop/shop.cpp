@@ -19,7 +19,7 @@ struct CLOTHES
     TYPE type;
     int amount;
     int id;
-    int price;  ///in BGN
+    int price;      ///in BGN
 };
 ///STRUCTURES
 
