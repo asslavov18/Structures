@@ -48,7 +48,13 @@ void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
 }
 void cashOut(CLOTHES* basket)
 {
-    cout << "I'll finish this later" << endl;
+    int i, sumCash = 0;
+    for (i = 0; i < clothesCountBasket; i++)
+    {
+        sumCash += basket[i].price;
+    }
+    cout << "Your total is " << sumCash << ". Your order is finihsed" << endl << "Your basket is ready for new orders." << endl;
+    basket = {};
 }
 bool comparePrice(CLOTHES clothe1, CLOTHES clothe2) //returns true if the first product has smaller price
 {                                                   //and else if the second has. This is later used for the sort function on line 72;
