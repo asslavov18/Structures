@@ -3,7 +3,7 @@
 #include<algorithm>
 using namespace std;
 int clothesCountShop, clothesCountBasket = 0;
-bool areTheRulesCouted=false;
+bool areTheRulesCouted = false;
 ///STRUCTURES
 struct TYPE
 {
@@ -33,6 +33,7 @@ CLOTHES getClothesById(CLOTHES* shop, int id)  ///returns clothes by their id
         if (shop[i].id == id) return shop[i];
     }
     cout << "Clothing with that ID was not found " << endl;
+    return shop[0];
 }
 
 void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
@@ -41,10 +42,14 @@ void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
     CLOTHES newProduct;
     cout << "What is the id of the product that you wish to buy:";
     cin >> id;
-    newProduct = getClothesById(shop, id); 
-    basket[clothesCountBasket] = newProduct;
-    clothesCountBasket++;
-    cout << "Product number " << id << " was succesfully added in basket." << endl;
+    newProduct = getClothesById(shop, id);
+    if (newProduct.id == id)
+    {
+        basket[clothesCountBasket] = newProduct;
+        clothesCountBasket++;
+        cout << "Product number " << id << " was succesfully added in basket." << endl;
+    }
+
 }
 void cashOut(CLOTHES* basket)
 {
@@ -84,17 +89,28 @@ void sortByVolenFilters(CLOTHES* shop) ///sorts the clothes by Volen's filters w
     cout << "Succesfully sorted." << endl;
 }
 
+void showInfoAboutProduct(CLOTHES product)
+{
+    cout << "This product is a " << product.type.colour << " ";
+    cout << product.type.brand << " " << product.type.model << "." << endl;
+    cout << "Its size is " << product.type.sz << " and its gender is ";
+    cout << product.type.gender << "." << endl;
+    cout << "We've got " << product.amount << " of it ";
+    cout << "and it costs " << product.price << " BGN." << endl;
+}
 
 bool Menu(CLOTHES* shop, CLOTHES* basket)
 {
     int n;
     if (areTheRulesCouted == false)
     {
+        cout << "----------WELCOME  TO  OUR SHOP---------- " << endl;
         cout << "1: Add a product in the basket" << endl;
         cout << "2: Sort data by price" << endl;
         cout << "3: Sort data by Volen's filters" << endl;
         cout << "4: Cash out" << endl;
-        cout << "5: Quit" << endl;
+        cout << "5: Get a product by id" << endl;
+        cout << "6: Quit" << endl;
         areTheRulesCouted = true;
     }
     cout << endl;
@@ -102,42 +118,55 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     cin >> n;
     switch (n)
     {
-        case 1:
+    case 1:
+    {
+        addProductInBasket(shop, basket);
+        return true;
+    }
+    case 2:
+    {
+        sortByPrice(shop);
+        return true;
+    }
+    case 3:
+    {
+        sortByVolenFilters(shop);
+        return true;
+    }
+    case 4:
+    {
+        cashOut(basket);
+        return true;
+    }
+    case 5:
+    {
+        int id;
+        cout << "What is the id of the product that you wish to see:";
+        cin >> id;
+        CLOTHES product;
+        product = getClothesById(shop, id);
+        if (product.id == id)
         {
-            addProductInBasket(shop, basket);
-            return true;
+            showInfoAboutProduct(product);
         }
-        case 2:
-        {
-            sortByPrice(shop);
-            return true;
-        }
-        case 3:
-        {
-            sortByVolenFilters(shop);
-            return true;
-        }
-        case 4:
-        {
-            cashOut(basket); ///DEBUG!!!!!!!!
-            return true;
-        }
-        case 5:
-        {
-            cout << "Have a nice day." << endl;
-            return false;
-        }
-        default:
-        {
-            cout << "Error. Please enter again."<<endl;
-            return true;
-        }
+        return true;
+    }
+    case 6:
+    {
+        cout << "Have a nice day." << endl;
+        return false;
+    }
+
+    default:
+    {
+        cout << "Error. Please enter again." << endl;
+        return true;
+    }
     }
 }
 ///FUNCTIONS
 int main()
 {
-
     ///DATA
     CLOTHES shop[200] = {
          {"red", "shirt", "S", "hm", 'M', 100, 1, 55},           ///that's our data about our shop and all the clothes that are in the array in the begging
@@ -158,15 +187,15 @@ int main()
     cout << shop[0].price << endl;
     CLOTHES a;
     a = getClothesById(shop, 5);
-    cout << a.id << endl;     
+    cout << a.id << endl;
     if (CompareForVolen(shop[2], shop[3]) == true) cout << shop[2].type.model << "AAAA" << endl;
     else cout << shop[3].type.model << "BBB" << endl;*/
-    bool IsInMenu=true;
+    bool IsInMenu = true;
     while (IsInMenu)
     {
-        IsInMenu=Menu(shop, basket);    ///This loops the menu function until the user chooses option 5 which is to quit
+        IsInMenu = Menu(shop, basket);    ///This loops the menu function until the user chooses option 5 which is to quit
     }
-    
+
 
     ///TESTING THE FUNCTIONS
     return 0;
