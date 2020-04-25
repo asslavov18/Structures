@@ -4,14 +4,14 @@
 using namespace std;
 int clothesCountShop, clothesCountBasket = 0;
 bool areTheRulesCouted = false;
-///STRUCTURES
+//STRUCTURES
 struct TYPE
 {
-    string colour;  ///red, green, blue
-    string model;  ///sweatshirt, shirt, hat
-    string sz;    ///S, XS, M, L, XL, XXL, XXXL
-    string brand;   ///gucci, armani
-    char gender;    ///M, F, B
+    string colour;  //red, green, blue
+    string model;  //sweatshirt, shirt, hat
+    string sz;    //S, XS, M, L, XL, XXL, XXXL
+    string brand;   //gucci, armani
+    char gender;    //M, F, B
 };
 
 struct CLOTHES
@@ -19,13 +19,13 @@ struct CLOTHES
     TYPE type;
     int amount;
     int id;
-    int price;      ///in BGN
+    int price;      //in BGN
 };
-///STRUCTURES
+//STRUCTURES
 
 
-/// FUNCTIONS
-CLOTHES getClothesById(CLOTHES* shop, int id)  ///returns clothes by their id
+// FUNCTIONS
+CLOTHES getClothesById(CLOTHES* shop, int id)  //returns clothes by their id
 {
     int i;
     for (i = 0; i < clothesCountShop; i++)
@@ -36,7 +36,7 @@ CLOTHES getClothesById(CLOTHES* shop, int id)  ///returns clothes by their id
     return shop[0];
 }
 
-void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
+void addProductInBasket(CLOTHES* shop, CLOTHES* basket) ///adds a product in the basket by id
 {
     int id;
     CLOTHES newProduct;
@@ -45,11 +45,16 @@ void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
     newProduct = getClothesById(shop, id);
     if (newProduct.id == id)
     {
+        int i;
+        newProduct.amount--;                    //we substract 1 from the amount of the product 
+        for (i = 0; i < clothesCountShop; i++)  //that we are going to put in the basket
+        {
+            if (shop[i].id == id) shop[i].amount--; ///we substract 1 from the amount of the product in the sop array
+        }
         basket[clothesCountBasket] = newProduct;
         clothesCountBasket++;
         cout << "Product number " << id << " was succesfully added in basket." << endl;
     }
-
 }
 void cashOut(CLOTHES* basket)
 {
@@ -59,7 +64,7 @@ void cashOut(CLOTHES* basket)
         sumCash += basket[i].price;
     }
     cout << "Your total is " << sumCash << ". Your order is finihsed" << endl << "Your basket is ready for new orders." << endl;
-    basket = {};
+    //DEBUG!!!!!! the basket needs to be cleared here
 }
 bool comparePrice(CLOTHES clothe1, CLOTHES clothe2) //returns true if the first product has smaller price
 {                                                   //and else if the second has. This is later used for the sort function on line 72;
@@ -67,7 +72,8 @@ bool comparePrice(CLOTHES clothe1, CLOTHES clothe2) //returns true if the first 
 }
 
 bool compareForVolen(CLOTHES clothe1, CLOTHES clothe2)  //returns true if the first product has to be chosen by Volen's filters
-{                                                       //and else if the second product is better. This is later used for the sort function on line 77.
+{                                                       //and else if the second product is better.This is later used for the sort function on line 77.
+
     if (clothe1.type.gender != 'F' && clothe2.type.gender == 'F') return true;
     else if (clothe1.type.gender == 'F' && clothe2.type.gender != 'F') return false;
 
@@ -77,20 +83,20 @@ bool compareForVolen(CLOTHES clothe1, CLOTHES clothe2)  //returns true if the fi
     return clothe1.price < clothe2.price;
 }
 
-void sortByPrice(CLOTHES* shop) ///sorts the clothes by price from lower to higher
+void sortByPrice(CLOTHES* shop) //sorts the clothes by price from lower to higher
 {
     sort(shop, shop + clothesCountShop, comparePrice);
     cout << "Succesfully sorted." << endl;
 }
 
-void sortByVolenFilters(CLOTHES* shop) ///sorts the clothes by Volen's filters which you can see on line 34
+void sortByVolenFilters(CLOTHES* shop) //sorts the clothes by Volen's filters which you can see on line 34
 {
     sort(shop, shop + clothesCountShop, compareForVolen);
     cout << "Succesfully sorted." << endl;
 }
 
-void showInfoAboutProduct(CLOTHES product)
-{
+void showInfoAboutProduct(CLOTHES product)  //Shows info about the product that you give
+{                                           //Who would've thought
     cout << "This product is a " << product.type.colour << " ";
     cout << product.type.brand << " " << product.type.model << "." << endl;
     cout << "Its size is " << product.type.sz << " and its gender is ";
@@ -99,18 +105,31 @@ void showInfoAboutProduct(CLOTHES product)
     cout << "and it costs " << product.price << " BGN." << endl;
 }
 
+void showProductsInBasket(CLOTHES* basket) //Shows info about all the products in the basket
+{                                          //using the showInfoAboutProduct function
+    int i;
+    for (i = 0; i < clothesCountBasket; i++)
+    {
+        cout << "Product " << i + 1 << ":" << endl;
+        showInfoAboutProduct(basket[i]);
+        cout << endl;
+    }
+    if (clothesCountBasket == 0) cout << "Your basket is empty." << endl;
+}
+
 bool Menu(CLOTHES* shop, CLOTHES* basket)
 {
     int n;
     if (areTheRulesCouted == false)
     {
-        cout << "----------WELCOME  TO  OUR SHOP---------- " << endl;
+        cout << "----------WELCOME  TO  OUR SHOP----------" << endl;
         cout << "1: Add a product in the basket" << endl;
         cout << "2: Sort data by price" << endl;
         cout << "3: Sort data by Volen's filters" << endl;
         cout << "4: Cash out" << endl;
         cout << "5: Get a product by id" << endl;
-        cout << "6: Quit" << endl;
+        cout << "6: Show products in basket" << endl;
+        cout << "7: Quit" << endl;
         areTheRulesCouted = true;
     }
     cout << endl;
@@ -153,6 +172,11 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     }
     case 6:
     {
+        showProductsInBasket(basket);
+        return true;
+    }
+    case 7:
+    {
         cout << "Have a nice day." << endl;
         return false;
     }
@@ -164,12 +188,12 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     }
     }
 }
-///FUNCTIONS
+//FUNCTIONS
 int main()
 {
-    ///DATA
+    //DATA
     CLOTHES shop[200] = {
-         {"red", "shirt", "S", "hm", 'M', 100, 1, 55},           ///that's our data about our shop and all the clothes that are in the array in the begging
+         {"red", "shirt", "S", "hm", 'M', 100, 1, 55},           //that's our data about our shop and all the clothes that are in the array in the begging
          {"blue", "sweatshirt", "M", "gucci", 'W', 100, 2, 40},
          {"red", "t-shirt", "M", "armani", 'B', 100, 3, 150},
          {"brown", "sweater", "L", "armani", 'B', 100, 4, 50},
@@ -179,9 +203,9 @@ int main()
     clothesCountShop = 6;
     CLOTHES basket[200];
 
-    ///DATA
+    //DATA
 
-    ///TESTING THE FUNCTIONS
+    //TESTING THE FUNCTIONS
 
     /*sortByPrice(shop);
     cout << shop[0].price << endl;
@@ -193,10 +217,10 @@ int main()
     bool IsInMenu = true;
     while (IsInMenu)
     {
-        IsInMenu = Menu(shop, basket);    ///This loops the menu function until the user chooses option 5 which is to quit
+        IsInMenu = Menu(shop, basket);    //This loops the menu function until the user chooses option 5 which is to quit
     }
 
 
-    ///TESTING THE FUNCTIONS
+    //TESTING THE FUNCTIONS
     return 0;
 }
