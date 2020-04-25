@@ -32,7 +32,7 @@ CLOTHES getClothesById(CLOTHES* shop, int id)  ///returns clothes by their id
     {
         if (shop[i].id == id) return shop[i];
     }
-    cout << "Clothing with that ID was not found" << endl;
+    cout << "Clothing with that ID was not found " << endl;
 }
 
 void addProductInBasket(CLOTHES* shop, CLOTHES* basket)
