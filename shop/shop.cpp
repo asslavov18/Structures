@@ -75,8 +75,8 @@ void cashOut(CLOTHES* basket)
     {
         sumCash += basket[i].price;
     }
-    cout << "Your total is " << sumCash << ". Your order is finihsed" << endl << "Your basket is ready for new orders." << endl;
-    //DEBUG!!!!!! the basket needs to be cleared here
+    cout << "Your total is " << sumCash << "BGN. Your order is finihsed" << endl << "Your basket is ready for new orders." << endl;
+    clothesCountBasket = 0;
 }
 bool comparePrice(CLOTHES clothe1, CLOTHES clothe2) //returns true if the first product has smaller price
 {                                                   //and else if the second has. This is later used for the sort function on line 72;
@@ -136,14 +136,14 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     {
         cout << "----------WELCOME  TO  OUR SHOP----------" << endl;
         cout << "-----------------MAIN MENU---------------" << endl;
-        cout << "10:Show all products" << endl;
-        cout << "1: Add a product in the basket" << endl;
-        cout << "2: Sort data by price" << endl;
-        cout << "3: Sort data by Volen's filters" << endl;
-        cout << "4: Cash out" << endl;
-        cout << "5: Get a product by id" << endl;
-        cout << "6: Show products in basket" << endl;
-        cout << "7: Quit" << endl;
+        cout << "1:Show all products" << endl;
+        cout << "2: Add a product in the basket" << endl;
+        cout << "3: Sort data by price" << endl;
+        cout << "4: Sort data by Volen's filters" << endl;
+        cout << "5: Cash out" << endl;
+        cout << "6: Get a product by id" << endl;
+        cout << "7: Show products in basket" << endl;
+        cout << "8: Quit" << endl;
         areTheRulesCouted = true;
     }
     cout << endl;
@@ -151,28 +151,34 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     cin >> n;
     switch (n)
     {
-
     case 1:
+    {
+        showAllProducts(shop);
+        return true;
+
+    }
+
+    case 2:
     {
         addProductInBasket(shop, basket);
         return true;
     }
-    case 2:
+    case 3:
     {
         sortByPrice(shop);
         return true;
     }
-    case 3:
+    case 4:
     {
         sortByVolenFilters(shop);
         return true;
     }
-    case 4:
+    case 5:
     {
         cashOut(basket);
         return true;
     }
-    case 5:
+    case 6:
     {
         int id;
         cout << "What is the id of the product that you wish to see:";
@@ -185,18 +191,13 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
         }
         return true;
     }
-    case 6:
+    case 7:
     {
         showProductsInBasket(basket);
         return true;
     }
-    case 10:
-    {
-        showAllProducts(shop);
-        return true;
-
-    }
-    case 7:
+    
+    case 8:
     {
         cout << "Have a nice day." << endl;
         return false;
