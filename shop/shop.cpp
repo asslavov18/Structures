@@ -16,9 +16,9 @@ struct TYPE
 
 struct CLOTHES
 {
+    int id;
     TYPE type;
     int amount;
-    int id;
     int price;      //in BGN
 };
 //STRUCTURES
@@ -35,7 +35,19 @@ CLOTHES getClothesById(CLOTHES* shop, int id)  //returns clothes by their id
     cout << "Clothing with that ID was not found " << endl;
     return shop[0];
 }
+void showAllProducts(CLOTHES* shop)
+{
 
+    for (int i = 0; i < clothesCountShop; i++) {
+        cout << endl;
+        cout << "Product(ID): " << shop[i].id << endl;
+        cout << "This product is: " << shop[i].type.colour << ", " << shop[i].type.brand << ", " << shop[i].type.model << endl;
+        cout << "Size: " << shop[i].type.sz << endl;
+        cout << "Gender:" << shop[i].type.gender << endl;
+        cout << "We've got " << shop[i].amount << endl;
+        cout << "It costs:" << shop[i].price << " BGN." << endl;
+    }
+}
 void addProductInBasket(CLOTHES* shop, CLOTHES* basket) ///adds a product in the basket by id
 {
     int id;
@@ -123,6 +135,8 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     if (areTheRulesCouted == false)
     {
         cout << "----------WELCOME  TO  OUR SHOP----------" << endl;
+        cout << "-----------------MAIN MENU---------------" << endl;
+        cout << "10:Show all products" << endl;
         cout << "1: Add a product in the basket" << endl;
         cout << "2: Sort data by price" << endl;
         cout << "3: Sort data by Volen's filters" << endl;
@@ -137,6 +151,7 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
     cin >> n;
     switch (n)
     {
+
     case 1:
     {
         addProductInBasket(shop, basket);
@@ -175,6 +190,12 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
         showProductsInBasket(basket);
         return true;
     }
+    case 10:
+    {
+        showAllProducts(shop);
+        return true;
+
+    }
     case 7:
     {
         cout << "Have a nice day." << endl;
@@ -193,12 +214,12 @@ int main()
 {
     //DATA
     CLOTHES shop[200] = {
-         {"red", "shirt", "S", "hm", 'M', 100, 1, 55},           //that's our data about our shop and all the clothes that are in the array in the begging
-         {"blue", "sweatshirt", "M", "gucci", 'W', 100, 2, 40},
-         {"red", "t-shirt", "M", "armani", 'B', 100, 3, 150},
-         {"brown", "sweater", "L", "armani", 'B', 100, 4, 50},
-         {"red", "sweatpants", "M", "armani", 'W', 100, 5, 75},
-         {"yellow", "shorts", "L", "armani", 'M', 100, 6, 70},
+         {1,"red", "shirt", "S", "hm", 'M', 100,  55},           //that's our data about our shop and all the clothes that are in the array in the begging
+         {2, "blue", "sweatshirt", "M", "gucci", 'W', 100,40},
+         {3,"red", "t-shirt", "M", "armani", 'B', 100, 150},
+         {4, "brown", "sweater", "L", "armani", 'B', 100, 50},
+         {5,"red", "sweatpants", "M", "armani", 'W', 100, 75},
+         {6,"yellow", "shorts", "L", "armani", 'M', 100,  70},
     };
     clothesCountShop = 6;
     CLOTHES basket[200];
