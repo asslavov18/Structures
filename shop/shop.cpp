@@ -82,8 +82,8 @@ bool compareForVolen(CLOTHES clothe1, CLOTHES clothe2)  //returns true if the fi
 	if (clothe1.type.gender != "female" && clothe2.type.gender == "female") return true;
 	else if (clothe1.type.gender == "female" && clothe2.type.gender != "female") return false;
 
-	if (clothe1.type.sz == "male" && clothe2.type.sz != "male") return true;
-	else if (clothe1.type.sz != "male" && clothe2.type.sz == "male") return false;
+	if (clothe1.type.sz == "M" && clothe2.type.sz != "M") return true;
+	else if (clothe1.type.sz != "M" && clothe2.type.sz == "M") return false;
 
 	return clothe1.price < clothe2.price;
 }
