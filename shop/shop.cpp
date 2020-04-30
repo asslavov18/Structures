@@ -21,10 +21,10 @@ struct CLOTHES
 	int amount;
 	int price;      //in BGN
 };
-//STRUCTURES
 
 
-// FUNCTIONS
+
+// DATA LAYER
 CLOTHES getClothesById(CLOTHES* shop, int id)  //returns clothes by their id
 {
 	int i;
@@ -120,7 +120,7 @@ void sortByVolenFilters(CLOTHES* shop) //sorts the clothes by Volen's filters wh
 	sort(shop, shop + clothesCountShop, compareForVolen);
 	cout << "Succesfully sorted." << endl;
 }
-
+//PRESENTATION LAYER
 void showInfoAboutProduct(CLOTHES product)  //Shows info about the product that you give
 {                                           //Who would've thought
 	cout << "This product is a " << product.type.colour << " ";
@@ -176,10 +176,7 @@ void addNewProductInShop(CLOTHES* shop)
   //The probability of the user breaking the program is considered in every other function except for this one
   //so i hope it's ok. This part of the program is a work in progress.
 }
-
 //USER INTERFACE
-//FUNCTIONS
-
 bool Menu(CLOTHES* shop, CLOTHES* basket)
 {
 	int n;
@@ -265,8 +262,6 @@ bool Menu(CLOTHES* shop, CLOTHES* basket)
 		}
 	}
 }
-//USER INTERFACE
-//FUNCTIONS
 int main()
 {
 
