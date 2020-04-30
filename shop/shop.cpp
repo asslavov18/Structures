@@ -13,7 +13,6 @@ struct TYPE
 	string brand;   //gucci, armani
 	string gender;    //male, female, both
 };
-
 struct CLOTHES
 {
 	int id;
@@ -21,8 +20,6 @@ struct CLOTHES
 	int amount;
 	int price;      //in BGN
 };
-
-
 
 // DATA LAYER
 CLOTHES getClothesById(CLOTHES* shop, int id)  //returns clothes by their id
@@ -35,22 +32,6 @@ CLOTHES getClothesById(CLOTHES* shop, int id)  //returns clothes by their id
 	cout << "Clothing with that ID was not found " << endl;
 	return shop[0];
 }
-
-void showAllProducts(CLOTHES* shop)
-{
-
-        for (int i = 0; i < clothesCountShop; i++)
-        {
-            cout << endl;
-            cout << "Product(ID): " << shop[i].id << endl;
-            cout << "This product is: " << shop[i].type.colour << " " << shop[i].type.brand << " " << shop[i].type.model << endl;
-            cout << "Size: " << shop[i].type.sz << endl;
-            cout << "Gender: " << shop[i].type.gender << endl;
-            cout << "We've got " << shop[i].amount << " of it." << endl;
-            cout << "It costs:" << shop[i].price << " BGN." << endl;
-        }
-}
-
 void addProductInBasket(CLOTHES* shop, CLOTHES* basket) //adds a product in the basket by id
 {
 	int id;
@@ -71,7 +52,6 @@ void addProductInBasket(CLOTHES* shop, CLOTHES* basket) //adds a product in the 
 		cout << "Product number " << id << " was succesfully added in basket." << endl;
 	}
 }
-
 void cashOut(CLOTHES* basket)
 {
 	int i, sumCash = 0;
@@ -96,7 +76,6 @@ bool comparePrice(CLOTHES clothe1, CLOTHES clothe2) //returns true if the first 
 {                       //and else if the second has. This is later used for the sort function on line 72;
 	return clothe1.price < clothe2.price;
 }
-
 bool compareForVolen(CLOTHES clothe1, CLOTHES clothe2)  //returns true if the first product has to be chosen by Volen's filters
 {                                //and else if the second product is better.This is later used for the sort function on line 77.
 
@@ -108,19 +87,32 @@ bool compareForVolen(CLOTHES clothe1, CLOTHES clothe2)  //returns true if the fi
 
 	return clothe1.price < clothe2.price;
 }
-
 void sortByPrice(CLOTHES* shop) //sorts the clothes by price from lower to higher
 {
 	sort(shop, shop + clothesCountShop, comparePrice);
 	cout << "Succesfully sorted." << endl;
 }
-
 void sortByVolenFilters(CLOTHES* shop) //sorts the clothes by Volen's filters which you can see on line 34
 {
 	sort(shop, shop + clothesCountShop, compareForVolen);
 	cout << "Succesfully sorted." << endl;
 }
+
 //PRESENTATION LAYER
+void showAllProducts(CLOTHES* shop)
+{
+
+        for (int i = 0; i < clothesCountShop; i++)
+        {
+            cout << endl;
+            cout << "Product(ID): " << shop[i].id << endl;
+            cout << "This product is: " << shop[i].type.colour << " " << shop[i].type.brand << " " << shop[i].type.model << endl;
+            cout << "Size: " << shop[i].type.sz << endl;
+            cout << "Gender: " << shop[i].type.gender << endl;
+            cout << "We've got " << shop[i].amount << " of it." << endl;
+            cout << "It costs:" << shop[i].price << " BGN." << endl;
+        }
+}
 void showInfoAboutProduct(CLOTHES product)  //Shows info about the product that you give
 {                                           //Who would've thought
 	cout << "This product is a " << product.type.colour << " ";
@@ -130,7 +122,6 @@ void showInfoAboutProduct(CLOTHES product)  //Shows info about the product that 
 	cout << "We've got " << product.amount << " of it ";
 	cout << "and it costs " << product.price << " BGN." << endl;
 }
-
 void showProductsInBasket(CLOTHES* basket) //Shows info about all the products in the basket
 {                                          //using the showInfoAboutProduct function
 	int i;
@@ -148,7 +139,6 @@ void showProductsInBasket(CLOTHES* basket) //Shows info about all the products i
     }
     clothesCountBasket = 0;
 }
-
 void addNewProductInShop(CLOTHES* shop)
 {
     CLOTHES product;
@@ -176,6 +166,7 @@ void addNewProductInShop(CLOTHES* shop)
   //The probability of the user breaking the program is considered in every other function except for this one
   //so i hope it's ok. This part of the program is a work in progress.
 }
+
 //USER INTERFACE
 bool Menu(CLOTHES* shop, CLOTHES* basket)
 {
